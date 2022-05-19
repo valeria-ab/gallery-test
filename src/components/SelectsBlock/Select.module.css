@@ -1,0 +1,133 @@
+.selects__Block {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 10vh;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px auto;
+    width: 90%;
+}
+
+.select {
+    /*margin: 0 auto;*/
+    /*max-width: 280px;*/
+    /*min-width: 160px;*/
+    width: 24%;
+    /*height: 45px;*/
+    position: relative;
+}
+
+.select.is__active .selectBody {
+    display: block;
+}
+
+.selectHeader {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    width: 100%;
+    /*max-width: 280px;*/
+    /*min-width: 160px;*/
+    /*min-width: 24%;*/
+    height: 45px;
+    border-radius: 8px;
+    /*margin: 0 auto;*/
+}
+
+.selectBody {
+    left: 0;
+    right: 0;
+    top: 100%;
+    position: absolute;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    display: none;
+    text-align: left;
+    z-index: 99999;
+    background-color: white;
+    height: 345px;
+    overflow-y: auto;
+}
+
+.selectBody::-webkit-scrollbar-thumb {
+    width: 2px;
+    border-radius: 8px;
+    /*background: red;*/
+    /*border: 3px solid #61dafb;*/
+    /*background-color: #5b5bb6;*/
+}
+
+.selectBody::-webkit-scrollbar-track {
+    width: 2px;
+    border-radius: 8px;
+    background-color: #ffaffb;
+}
+
+.select__icon {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    margin-left: auto;
+}
+
+.select__icon__arrow {
+    /*color: rgba(255, 255, 255, 0.3);*/
+    color: rgb(141, 143, 145);
+}
+
+.select__item {
+    line-height: 24px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+
+.select__item:hover {
+    background-color: #f2f2f2;
+}
+
+.select__current {
+    font-size: 18px;
+    line-height: 24px;
+    padding: 8px;
+}
+
+
+.created__year__field {
+    border: none;
+    background: #EFEFEF;
+    cursor: pointer;
+    /*width: 75px;*/
+    width: 30%;
+    height: 42px;
+    border-radius: 8px;
+    margin: 0 auto;
+    padding-left: 15px;
+
+}
+
+.SelectWithDate__selectBody {
+    right: -2px;
+    height: auto;
+}
+
+
+.selectHeader__test {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: none;
+    cursor: pointer;
+    width: 100%;
+    /*max-width: 280px;*/
+    /*min-width: 160px;*/
+    /*min-width: 24%;*/
+    height: 45px;
+    border-radius: 8px 8px 0 0;
+    /*margin: 0 auto;*/
+}

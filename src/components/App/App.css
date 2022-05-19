@@ -1,7 +1,9 @@
 .App {
   text-align: center;
 }
-
+.App__nightMode {
+  background-color: black;
+}
 
 .App-link {
   color: #61dafb;

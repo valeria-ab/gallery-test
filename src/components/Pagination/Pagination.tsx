@@ -20,21 +20,30 @@ const Pagination = () => {
 
 
     return (
-        <div style={{border: '1px solid', margin: '10px', padding: '5px'}}>
+        <div style={{border: '1px solid', padding: '5px',  height: "10vh"}}>
+            <button disabled={currentPage === 1}
+                    onClick={() => dispatch(setPage({currentPage: currentPage - 1}))}
+            >&lt;</button>
             {pages.map((item) => {
                 return <span key={item}
-                             style={{display: 'inline-block',
+                             style={{
+                                 display: 'inline-block',
                                  border: '1px solid',
                                  margin: '10px',
                                  padding: '5px',
-                                 backgroundColor: currentPage=== item ? "gold" : "",
+                                 backgroundColor: currentPage === item ? 'black' : '',
+                                 color: currentPage === item ? 'white' : 'black',
 
-                }}
+                             }}
                              onClick={() => {
                                  dispatch(setPage({currentPage: item}))
                              }}
                 >{item}</span>
             })}
+            <button disabled={currentPage === pages.length}
+                    onClick={() => dispatch(setPage({currentPage: currentPage + 1}))}
+            >&gt;</button>
+
         </div>
     );
 }

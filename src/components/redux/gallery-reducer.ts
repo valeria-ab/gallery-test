@@ -6,29 +6,19 @@ import {cardsApi, PaintingsResponseType} from '../utils/api';
 
 export type InitialCardsStateType = {
     paintings: Array<PaintingsResponseType>
-    galleryId: number | null
-    q: string | null
-    _gte: string | null
-    _lte: string | null
-    _page: number | null
-    _limit: number | null
-    anyObjectField: string | number | null
-    authorId: string
-
+    // galleryId: number | null
+    // q: string | null
+    //
+    // anyObjectField: string | number | null
+    // authorId: string
+isNightModeOn: boolean
     currentPage: number
 }
 
 const initialState: InitialCardsStateType = {
     paintings: [] as Array<PaintingsResponseType>,
-    galleryId: null,
-    q: null,
-    _gte: null,
-    _lte: null,
-    _page: null,
-    _limit: null,
-    anyObjectField: null,
-    authorId: "",
-    currentPage: 1 // for pagination
+    currentPage: 1, // for pagination
+    isNightModeOn: false
 };
 
 export const galleryReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
@@ -38,6 +28,7 @@ export const galleryReducer = (state: InitialCardsStateType = initialState, acti
         // case 'GALLERY/SET-AUTHOR-ID':
         // case 'GALLERY/SET-LOCATION-ID':
         case 'GALLERY/SET-PAGE':
+        case 'GALLERY/SET-IS-NIGHT-MODE-ON':
             return {...state, ...action.payload}
 
         default:
@@ -50,6 +41,7 @@ export const setPaintings = (payload: {paintings: Array<PaintingsResponseType>})
 // export const setAuthorId = (payload: {authorId: string}) => ({type: 'GALLERY/SET-AUTHOR-ID', payload} as const)
 // export const setLocationId = (payload: {galleryId: number}) => ({type: 'GALLERY/SET-LOCATION-ID', payload} as const)
 export const setPage = (payload: {currentPage: number}) => ({type: 'GALLERY/SET-PAGE', payload} as const)
+export const setIsNightModeOn = (payload: {isNightModeOn: boolean}) => ({type: 'GALLERY/SET-IS-NIGHT-MODE-ON', payload} as const)
 
 
 
@@ -57,6 +49,7 @@ type ActionsType =
     // | ReturnType<typeof setAuthorId>
     | ReturnType<typeof setPaintings>
     | ReturnType<typeof setPage>
+    | ReturnType<typeof setIsNightModeOn>
     // | ReturnType<typeof setLocationId>
 
 
@@ -66,8 +59,8 @@ type ActionsType =
 export const getCardsTC = (payload?: {data: string}):any =>
     (dispatch: Dispatch, getState: () => IAppStore) => {
         const {
-            authorId,
-            galleryId,
+            // authorId,
+            // galleryId,
         } = getState().gallery;
 
 
