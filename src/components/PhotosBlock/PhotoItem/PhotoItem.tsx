@@ -6,7 +6,7 @@ const PhotoItem = React.memo((props: {picture: PaintingsResponseType }) => {
 
 
     return (
-        <div style={{padding: "20px", margin: "10px"}} >
+        <div style={{marginTop: "10px", marginBottom: "10px"}} >
             {/*<span>{props.picture.name}</span>*/}
             <div className={s.photoItem} >
                 <img

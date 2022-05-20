@@ -11,9 +11,10 @@ type PropsType = {
 const GalleryBlock = (props: PropsType) => {
 
     const currentPage = useSelector<IAppStore, number>(state => state.gallery.currentPage)
+    const itemsPerPage = useSelector<IAppStore, number>(state => state.gallery.itemsPerPage)
 
-    let end = currentPage * 12
-    let start = end - 12
+    let end = currentPage * itemsPerPage
+    let start = end - itemsPerPage
 
     let paintings = props.pictures.slice(start, end)
     let mappedArray = paintings;
@@ -23,7 +24,7 @@ const GalleryBlock = (props: PropsType) => {
 
 
     return (
-        <div style={{display: "flex", flexWrap: "wrap" , justifyContent: "center"}}>
+        <div style={{display: "flex", flexWrap: "wrap" , justifyContent: "space-between"}}>
             {
                 mappedArray.map(p => <PhotoItem key={p.id} picture={p}/>)
             }

@@ -1,0 +1,52 @@
+.paginationBlock {
+    display: flex;
+    justify-content: stretch;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 280px;
+    border: 1px solid;
+    height: 40px;
+    cursor: pointer;
+}
+
+.paginationBlock__whiteMode {
+    border: 1px solid black;
+}
+.paginationBlock__nightMode {
+    border: 1px solid white;
+}
+
+.paginationBlock__pageButton {
+    display: inline-block;
+    border: none;
+    border-right: 1px solid;
+    height: 100%;
+    min-width: 40px;
+    cursor: pointer;
+}
+
+.pageButton__whiteMode {
+    background-color: white;
+    color: black;
+}
+.pageButton__nightMode {
+    background-color: black;
+    color: white;
+}
+
+.pageButton__whiteMode__page__active {
+    color: white;
+    background: black;
+}
+
+.pageButton__nightMode__page__active {
+    color: black;
+    background: white;
+}
+.paginationBlock__pageButton__buttonDisabled {
+    opacity: 0.3;
+}
+
+
+

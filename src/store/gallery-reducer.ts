@@ -13,12 +13,14 @@ export type InitialCardsStateType = {
     // authorId: string
 isNightModeOn: boolean
     currentPage: number
+    itemsPerPage: number
 }
 
 const initialState: InitialCardsStateType = {
     paintings: [] as Array<PaintingsResponseType>,
     currentPage: 1, // for pagination
-    isNightModeOn: false
+    isNightModeOn: false,
+    itemsPerPage: 12
 };
 
 export const galleryReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
