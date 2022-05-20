@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {cardsApi, PaintingsResponseType} from '../utils/api';
+import {cardsApi, PaintingsResponseType} from '../../utils/api';
 import GalleryBlock from '../PhotosBlock/GalleryBlock';
 import SelectsBlock from '../SelectsBlock/SelectsBlock';
 import {useDispatch, useSelector} from 'react-redux';
-import {IAppStore} from '../redux/store';
-import {getCardsTC} from '../redux/gallery-reducer';
+import {IAppStore} from '../../store/store';
+import {getCardsTC} from '../../store/gallery-reducer';
 import Pagination from '../Pagination/Pagination';
 import {Header} from '../Header/Header';
 

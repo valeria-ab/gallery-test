@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {AuthorsResponseType, cardsApi, LocationsResponseType} from '../utils/api';
+import {AuthorsResponseType, cardsApi, LocationsResponseType} from '../../utils/api';
 import {useDispatch} from 'react-redux';
-import {getCardsTC} from '../redux/gallery-reducer';
+import {getCardsTC} from '../../store/gallery-reducer';
 import s from './Select.module.css'
 
 const SelectsBlock = React.memo(() => {

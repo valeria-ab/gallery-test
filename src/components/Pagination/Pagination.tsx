@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 
-import {PaintingsResponseType} from '../utils/api';
+import {PaintingsResponseType} from '../../utils/api';
 import {useDispatch, useSelector} from 'react-redux';
-import {IAppStore} from '../redux/store';
-import {setPage} from '../redux/gallery-reducer';
+import {IAppStore} from '../../store/store';
+import {setPage} from '../../store/gallery-reducer';
 
 
 const Pagination = () => {

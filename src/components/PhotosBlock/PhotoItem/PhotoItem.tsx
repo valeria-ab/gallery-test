@@ -1,5 +1,5 @@
 import React from 'react';
-import {PaintingsResponseType} from '../../utils/api';
+import {PaintingsResponseType} from '../../../utils/api';
 import s from './PhotoItem.module.css'
 
 const PhotoItem = React.memo((props: {picture: PaintingsResponseType }) => {

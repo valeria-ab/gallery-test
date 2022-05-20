@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import PhotoItem from './PhotoItem/PhotoItem';
-import {PaintingsResponseType} from '../utils/api';
+import {PaintingsResponseType} from '../../utils/api';
 import {useSelector} from 'react-redux';
-import {IAppStore} from '../redux/store';
+import {IAppStore} from '../../store/store';
 
 type PropsType = {
     pictures: Array<PaintingsResponseType>

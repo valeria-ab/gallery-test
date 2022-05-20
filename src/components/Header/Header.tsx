@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import style from './Header.module.css'
-import {setIsNightModeOn} from '../redux/gallery-reducer';
+import {setIsNightModeOn} from '../../store/gallery-reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {IAppStore} from '../redux/store';
+import {IAppStore} from '../../store/store';
 
 export const Header = () => {
     const dispatch = useDispatch()

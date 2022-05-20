@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {cardsApi, PaintingsResponseType} from '../utils/api';
+import {cardsApi, PaintingsResponseType} from '../../utils/api';
 import GalleryBlock from '../PhotosBlock/GalleryBlock';
 
 const Main = () => {
