@@ -57,8 +57,10 @@ const Pagination = () => {
 
 
     return (
-        <div
-            className={isNightModeOn ? `${s.paginationBlock} ${s.paginationBlock__nightMode}` : `${s.paginationBlock} ${s.paginationBlock__whiteMode}`}>
+        <div className={isNightModeOn
+            ? `${s.paginationBlock} ${s.paginationBlock__nightMode}`
+            : `${s.paginationBlock} ${s.paginationBlock__whiteMode}`
+        }>
             <button className={currentPage === 1 || portion == 1 ? disabledStyle : pagesModeStyle}
                     style={{borderRadius: '8px 0 0 8px', fontSize: '23px'}}
                     disabled={portion === 1}
