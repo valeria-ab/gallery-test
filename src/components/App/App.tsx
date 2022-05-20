@@ -8,28 +8,26 @@ import {IAppStore} from '../../store/store';
 import {getCardsTC} from '../../store/gallery-reducer';
 import Pagination from '../Pagination/Pagination';
 import {Header} from '../Header/Header';
+import {Routes, Route, useParams} from 'react-router-dom';
+import Main from '../Main/Main';
 
-const App = React.memo( () => {
-  const dispatch = useDispatch()
-  // const authorId = useSelector<IAppStore, string>(state => state.gallery.authorId)
-  // const galleryId = useSelector<IAppStore, number | null>(state => state.gallery.galleryId)
-  const isNightModeOn = useSelector<IAppStore, boolean>(state => state.gallery.isNightModeOn)
-  const paintings = useSelector<IAppStore, Array<PaintingsResponseType>>(state => state.gallery.paintings)
+const App = React.memo(() => {
 
-
-  useEffect( () => {
-    dispatch(getCardsTC())
-  }, [])
+        // const authorId = useSelector<IAppStore, string>(state => state.gallery.authorId)
+        // const galleryId = useSelector<IAppStore, number | null>(state => state.gallery.galleryId)
+    const isNightModeOn = useSelector<IAppStore, boolean>(state => state.gallery.isNightModeOn)
 
 
-  return (
-    <div className={isNightModeOn? "App " + "App__nightMode" : 'App'}>
-        <Header/>
-      <SelectsBlock/>
-      <GalleryBlock pictures={paintings} />
-      <Pagination/>
-    </div>
-  );
-}
+
+    return (
+            <div className={isNightModeOn ? 'App ' + 'App__nightMode' : 'App'}>
+                <Header/>
+                <Routes>
+                    <Route path={'/'} element={<Main/>}/>
+                    <Route path={'/:param'} element={<Main/>}/>
+                </Routes>
+            </div>
+        );
+    }
 )
 export default App;
