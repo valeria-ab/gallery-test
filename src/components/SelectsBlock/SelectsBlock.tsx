@@ -1,29 +1,19 @@
 import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import {AuthorsResponseType, cardsApi, LocationsResponseType} from '../../utils/api';
-import {useDispatch} from 'react-redux';
-import {getCardsTC} from '../../store/gallery-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCardsTC, setAuthors, setLocations} from '../../store/gallery-reducer';
 import s from './Select.module.css'
 import {useNavigate} from 'react-router-dom';
 import useDebounce from '../../hooks/AutoDispatch';
+import {IAppStore} from '../../store/store';
 
 const SelectsBlock = React.memo(() => {
 
-        const [authors, setAuthors] = useState<Array<AuthorsResponseType>>([])
+    const authors = useSelector<IAppStore, Array<AuthorsResponseType>>(state => state.gallery.authors)
+    const locations = useSelector<IAppStore, Array<LocationsResponseType>>(state => state.gallery.locations)
 
-        const [locations, setLocations] = useState<Array<LocationsResponseType>>([])
 
 
-        useEffect(() => {
-            cardsApi.getAuthors().then((res) => {
-                setAuthors(res.data)
-            })
-        }, [])
-
-        useEffect(() => {
-            cardsApi.getLocations().then((res) => {
-                setLocations(res.data)
-            })
-        }, [])
 
 
         return (

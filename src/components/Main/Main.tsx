@@ -6,7 +6,7 @@ import Pagination from '../Pagination/Pagination';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../store/store';
 import {useParams} from 'react-router-dom';
-import {getCardsTC} from '../../store/gallery-reducer';
+import {getCardsTC, setAuthors, setLocations} from '../../store/gallery-reducer';
 
 const Main = () => {
     const dispatch = useDispatch()
@@ -23,6 +23,19 @@ const Main = () => {
         }
 
     }, [param])
+
+    useEffect(() => {
+
+        cardsApi.getAuthors().then((res) => {
+         dispatch(setAuthors({authors: res.data}))
+        })
+    }, [])
+
+    useEffect(() => {
+        cardsApi.getLocations().then((res) => {
+            dispatch(setLocations({locations: res.data}))
+        })
+    }, [])
 
     return (
         <div>
