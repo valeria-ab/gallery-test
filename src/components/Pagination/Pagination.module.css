@@ -5,22 +5,12 @@
     margin-bottom: 20px;
     border-radius: 8px;
     width: 280px;
-    border: 1px solid;
     height: 40px;
     cursor: pointer;
 }
 
-.paginationBlock__whiteMode {
-    border: 1px solid black;
-}
-.paginationBlock__nightMode {
-    border: 1px solid white;
-}
-
 .paginationBlock__pageButton {
     display: inline-block;
-    border: none;
-    border-right: 1px solid;
     height: 100%;
     min-width: 40px;
     cursor: pointer;
@@ -29,24 +19,48 @@
 .pageButton__whiteMode {
     background-color: white;
     color: black;
+    border: 1px solid black;
 }
+
+.pageButton__whiteMode:hover {
+    background-color: #EDEDED;
+}
+
 .pageButton__nightMode {
     background-color: black;
     color: white;
+    border: 1px solid white;
+
 }
 
-.pageButton__whiteMode__page__active {
+.pageButton__nightMode:hover {
+    background-color: #464646;
     color: white;
-    background: black;
 }
 
-.pageButton__nightMode__page__active {
+.pageButton__whiteMode__page__active,
+.pageButton__whiteMode__page__active:hover {
+    color: white;
+    background-color: black;
+}
+
+.pageButton__nightMode__page__active,
+.pageButton__nightMode__page__active:hover {
     color: black;
-    background: white;
+    background-color: white;
 }
-.paginationBlock__pageButton__buttonDisabled {
+
+.paginationBlock__pageButton__buttonDisabled__whiteMode {
     opacity: 0.3;
+    background-color: #EDEDED;
+    cursor: auto;
 }
 
+.paginationBlock__pageButton__buttonDisabled__nightMode {
+    opacity: 0.3;
+    cursor: auto;
+}
 
-
+.paginationBlock__pageButton__buttonDisabled__nightMode:hover {
+    background-color: black;
+}

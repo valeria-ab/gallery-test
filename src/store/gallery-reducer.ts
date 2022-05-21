@@ -6,12 +6,7 @@ import {cardsApi, PaintingsResponseType} from '../utils/api';
 
 export type InitialCardsStateType = {
     paintings: Array<PaintingsResponseType>
-    // galleryId: number | null
-    // q: string | null
-    //
-    // anyObjectField: string | number | null
-    // authorId: string
-isNightModeOn: boolean
+    isNightModeOn: boolean
     currentPage: number
     itemsPerPage: number
 }
@@ -39,26 +34,30 @@ export const galleryReducer = (state: InitialCardsStateType = initialState, acti
 };
 
 
-export const setPaintings = (payload: {paintings: Array<PaintingsResponseType>}) => ({type: 'GALLERY/SET-PAINTINGS', payload} as const)
+export const setPaintings = (payload: { paintings: Array<PaintingsResponseType> }) => ({
+    type: 'GALLERY/SET-PAINTINGS',
+    payload
+} as const)
 // export const setAuthorId = (payload: {authorId: string}) => ({type: 'GALLERY/SET-AUTHOR-ID', payload} as const)
 // export const setLocationId = (payload: {galleryId: number}) => ({type: 'GALLERY/SET-LOCATION-ID', payload} as const)
-export const setPage = (payload: {currentPage: number}) => ({type: 'GALLERY/SET-PAGE', payload} as const)
-export const setIsNightModeOn = (payload: {isNightModeOn: boolean}) => ({type: 'GALLERY/SET-IS-NIGHT-MODE-ON', payload} as const)
-
+export const setPage = (payload: { currentPage: number }) => ({type: 'GALLERY/SET-PAGE', payload} as const)
+export const setIsNightModeOn = (payload: { isNightModeOn: boolean }) => ({
+    type: 'GALLERY/SET-IS-NIGHT-MODE-ON',
+    payload
+} as const)
 
 
 type ActionsType =
-    // | ReturnType<typeof setAuthorId>
+// | ReturnType<typeof setAuthorId>
     | ReturnType<typeof setPaintings>
     | ReturnType<typeof setPage>
     | ReturnType<typeof setIsNightModeOn>
-    // | ReturnType<typeof setLocationId>
-
+// | ReturnType<typeof setLocationId>
 
 
 // thunk
 
-export const getCardsTC = (payload?: {data: string}):any =>
+export const getCardsTC = (payload?: { data: string }): any =>
     (dispatch: Dispatch, getState: () => IAppStore) => {
         const {
             // authorId,
@@ -71,14 +70,15 @@ export const getCardsTC = (payload?: {data: string}):any =>
             .then((res) => {
 
                 dispatch(setPaintings({paintings: res.data}))
-                dispatch(setPage( {currentPage: 1}))
+                dispatch(setPage({currentPage: 1}))
             })
             .catch((err) => {
                 // dispatch(setErrorAC(err.response.data.error))
                 alert((err))
 
             })
-            .finally(() => {}
+            .finally(() => {
+                }
                 // dispatch(setAppLoading("idle"))
             )
     }
