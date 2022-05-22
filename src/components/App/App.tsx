@@ -8,7 +8,7 @@ import {IAppStore} from '../../store/store';
 import {getCardsTC} from '../../store/gallery-reducer';
 import Pagination from '../Pagination/Pagination';
 import {Header} from '../Header/Header';
-import {Routes, Route, useParams} from 'react-router-dom';
+import {Routes, Route, useParams, useNavigate} from 'react-router-dom';
 import Main from '../Main/Main';
 
 const App = React.memo(() => {
@@ -24,7 +24,7 @@ const App = React.memo(() => {
                 <Header/>
                 <Routes>
                     <Route path={'/'} element={<Main/>}/>
-                    <Route path={'/:param'} element={<Main/>}/>
+                    <Route path={'/*'} element={<div>Page not found</div>}/>
                 </Routes>
             </div>
         );

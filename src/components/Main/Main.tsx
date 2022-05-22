@@ -5,24 +5,23 @@ import SelectsBlock from '../SelectsBlock/SelectsBlock';
 import Pagination from '../Pagination/Pagination';
 import {useDispatch, useSelector} from 'react-redux';
 import {IAppStore} from '../../store/store';
-import {useParams} from 'react-router-dom';
+import {useParams, useSearchParams} from 'react-router-dom';
 import {getCardsTC, setAuthors, setLocations} from '../../store/gallery-reducer';
 
 const Main = () => {
     const dispatch = useDispatch()
-    const {param} = useParams()
 
     const paintings = useSelector<IAppStore, Array<PaintingsResponseType>>(state => state.gallery.paintings)
-
+    const [searchParams, setSearchParams] = useSearchParams()
 
     useEffect(() => {
-        if (param) {
-            dispatch(getCardsTC({data: param}))
+        if (searchParams) {
+            dispatch(getCardsTC({data: searchParams}))
         } else {
             dispatch(getCardsTC())
         }
 
-    }, [param])
+    }, [searchParams])
 
     useEffect(() => {
 

@@ -29,7 +29,7 @@ export type LocationsResponseType = {
 
 
 export const cardsApi = {
-    getPictures(payload?: {data:string}) {
+    getPictures(payload?: {data:URLSearchParams}) {
         return instance.get<Array<PaintingsResponseType>>(payload? `paintings?${payload.data}`  : "paintings");
     },
     getAuthors() {

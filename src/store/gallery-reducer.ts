@@ -73,7 +73,7 @@ type ActionsType =
 
 // thunk
 
-export const getCardsTC = (payload?: { data: string }): any =>
+export const getCardsTC = (payload?: { data: URLSearchParams }): any =>
     (dispatch: Dispatch, getState: () => IAppStore) => {
         const {
             // authorId,

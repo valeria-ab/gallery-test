@@ -1,31 +1,23 @@
-import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
-import {AuthorsResponseType, cardsApi, LocationsResponseType} from '../../utils/api';
-import {useDispatch, useSelector} from 'react-redux';
-import {getCardsTC, setAuthors, setLocations} from '../../store/gallery-reducer';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {AuthorsResponseType, LocationsResponseType} from '../../utils/api';
+import {useSelector} from 'react-redux';
 import s from './Select.module.css'
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import useDebounce from '../../hooks/AutoDispatch';
 import {IAppStore} from '../../store/store';
 
 const SelectsBlock = React.memo(() => {
 
-    const authors = useSelector<IAppStore, Array<AuthorsResponseType>>(state => state.gallery.authors)
-    const locations = useSelector<IAppStore, Array<LocationsResponseType>>(state => state.gallery.locations)
-
-
-
+        const authors = useSelector<IAppStore, Array<AuthorsResponseType>>(state => state.gallery.authors)
+        const locations = useSelector<IAppStore, Array<LocationsResponseType>>(state => state.gallery.locations)
 
 
         return (
             <div className={s.selects__Block}>
-
-                <SelectsBlockNameInput/>
-
-
-                <SelectItem title={'Author'} authors={authors}/>
+                <SelectsBlockNameInput />
+                <SelectItem title={'Author'} authors={authors} />
                 <SelectItem title={'Location'} locations={locations}/>
-
-                <SelectWithDate/>
+                <SelectWithDate />
             </div>
         );
     }
@@ -38,29 +30,49 @@ type SelectPropsType = {
     authors?: Array<AuthorsResponseType>
 }
 const SelectItem = (props: SelectPropsType) => {
+    const isNightModeOn = useSelector<IAppStore, boolean>(state => state.gallery.isNightModeOn)
+    const [searchParams, setSearchParams] = useSearchParams()
+    let prevParams = Object.fromEntries(searchParams)
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(props.title)
-    const dispatch = useDispatch()
-    const history = useNavigate()
+    const [crossIconStyle, setIconCrossIconStyle] = useState({display: 'none'})
 
     return <div className={isOpen ? `${s.select} ${s.is__active}` : s.select}>
-        <div className={s.selectHeader} onClick={() => setIsOpen(!isOpen)}>
+        <div className={isNightModeOn
+            ? `${s.selectHeader} ${s.selectHeader__nightMode}`
+            : `${s.selectHeader} ${s.selectHeader__whiteMode}`}
+        >
             <span className={s.select__current}>{title}</span>
-            {/*<div className={s.select__icon} onClick={() => setTitle(props.title)}>&times;</div>*/}
-            <div className={`${s.select__icon} ${s.select__icon__arrow}`}>&#9660;</div>
+            <div style={{display: 'flex', alignItems: 'center', paddingRight: '10px'}}>
+                <div className={s.select__icon}
+                     style={crossIconStyle}
+                     onClick={() => {
+                         props.authors && delete prevParams.authorId
+                         props.locations && delete prevParams.id
+                         setTitle(props.title)
+                         setIconCrossIconStyle({display: 'none'})
+
+                         setSearchParams({...prevParams})
+                     }}
+                >&times;</div>
+                <div className={s.select__icon}
+                     onClick={() => setIsOpen(!isOpen)}
+                >&#9660;</div>
+
+            </div>
         </div>
         <div className={s.selectBody}>
             {
                 props.authors && props.authors.map(option => <div key={option.id}
-                                                                  className={s.select__item}
+                                                                  className={isNightModeOn
+                                                                      ? `${s.select__item} ${s.select__item__nightMode}`
+                                                                      : `${s.select__item} ${s.select__item__whiteMode}`}
                                                                   onClick={() => {
-                                                                      history({pathname: `/authorId=${option.id}`})
-                                                                      // dispatch(getCardsTC({data: `authorId=${option.id}`}))
+                                                                      setSearchParams({...prevParams, authorId: option.id.toString()})
                                                                       setTitle(option.name)
                                                                       setIsOpen(false)
+                                                                      setIconCrossIconStyle({display: 'block'})
                                                                   }}
-                        // onMouseOver={() => setValue(option.name)}
-                        //                                           onBlur={() => setIsOpen(false)}
                     >
                         {option.name}
                     </div>
@@ -68,14 +80,17 @@ const SelectItem = (props: SelectPropsType) => {
 
             {
                 props.locations && props.locations.map(option => <div key={option.id}
-                                                                      className={s.select__item}
+                                                                      className={isNightModeOn
+                                                                          ? `${s.select__item} ${s.select__item__nightMode}`
+                                                                          : `${s.select__item} ${s.select__item__whiteMode}`}
                                                                       onClick={() => {
-                                                                          history({pathname: `/id=${option.id}`})
-                                                                          // dispatch(getCardsTC({data: `id=${option.id}`}))
+                                                                          // history({pathname: `/id=${option.id}`})
+                                                                          setSearchParams({...prevParams, id: option.id.toString()})
+
                                                                           setTitle(option.location)
                                                                           setIsOpen(false)
+                                                                          setIconCrossIconStyle({display: 'block'})
                                                                       }}
-                        // onMouseOver={() => setValue(option.name)}
                     >
                         {option.location}
                     </div>
@@ -86,14 +101,21 @@ const SelectItem = (props: SelectPropsType) => {
 }
 
 const SelectsBlockNameInput = () => {
+    const isNightModeOn = useSelector<IAppStore, boolean>(state => state.gallery.isNightModeOn)
+    const inputStyle = isNightModeOn
+        ? `${s.select__current} ${s.select__current__input} ${s.select__current__input__nightMode}`
+        : `${s.select__current} ${s.select__current__input}`
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    let prevParams = Object.fromEntries(searchParams)
     const [name, setName] = useState('')
-    const dispatch = useDispatch()
     const history = useNavigate()
     const onKeyUpHandler = useDebounce(() => {
-        if(name) {
-            history({pathname: `/q=${name}`})
+        if (name) {
+            setSearchParams({...prevParams, q: name})
         } else {
-            history({pathname: `/`})
+            delete prevParams.q
+            setSearchParams({...prevParams})
         }
 
     }, 1000)
@@ -107,42 +129,41 @@ const SelectsBlockNameInput = () => {
     }
 
     return <div className={s.select}>
-        <div className={s.selectHeader}>
-            {/*<span className={s.select__current} style={{ width: "100%"}}>*/}
-            <input
-                className={s.select__current}
-                style={{
-                    width: '100%',
-                    outline: 'none',
-                    border: 'none', height: '100%', padding: '10', margin: '0',
-                    boxSizing: 'border-box', borderRadius: '8px'
-                }}
-                type="text"
-                placeholder={'Name'}
-                value={name}
-                onChange={setInputValueHandler}
-                onKeyUp={onKeyUpHandler}
-                onKeyPress={onEnterPressHandler}
+        <div className={isNightModeOn
+            ? `${s.selectHeader} ${s.selectHeader__nightMode}`
+            : `${s.selectHeader} ${s.selectHeader__whiteMode}`}>
+            <input className={inputStyle}
+                   type="text"
+                   placeholder={'Name'}
+                   value={name}
+                   onChange={setInputValueHandler}
+                   onKeyUp={onKeyUpHandler}
+                   onKeyPress={onEnterPressHandler}
             />
-            {/*</span>*/}
-
-
         </div>
-
-
     </div>
 }
 
 
 const SelectWithDate = () => {
-    const [from, setFrom] = useState<string | number>('')
-    const [before, setBefore] = useState<string | number>('')
+    const [from, setFrom] = useState<string >('')
+    const [before, setBefore] = useState<string >('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const history = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams()
+    let prevParams = Object.fromEntries(searchParams)
+    const headerStyle = isOpen ? s.selectHeader__test : s.selectHeader
+    const isNightModeOn = useSelector<IAppStore, boolean>(state => state.gallery.isNightModeOn)
+    const [title, setTitle] = useState<string>('Created')
+    const [crossIconStyle, setIconCrossIconStyle] = useState({display: 'none'})
+
 
     const onKeyUpHandler = useDebounce(() => {
-        if(from && before) {
-            history({pathname: `created_gte=${from}&created_lte=${before}`})
+        if (from && before) {
+           setSearchParams({...prevParams, created_gte: from, created_lte: before})
+            setIconCrossIconStyle({display: 'block'})
+            setTitle(`${from} - ${before}`)
+            setIsOpen(false)
         } else {
             history({pathname: `/`})
         }
@@ -150,11 +171,34 @@ const SelectWithDate = () => {
     }, 1000)
 
     return <div className={isOpen ? `${s.select} ${s.is__active}` : s.select}>
-        <div className={isOpen ? s.selectHeader__test : s.selectHeader}
-             onClick={() => setIsOpen(!isOpen)}>
-            <span className={s.select__current}>{'Created'}</span>
-            <div className={`${s.select__icon} ${s.select__icon__arrow}`}>&#9660;</div>
+        <div className={
+            isNightModeOn
+                ? `${headerStyle} ${s.selectHeader__nightMode}`
+                : `${headerStyle} ${s.selectHeader__whiteMode}`}
 
+        >
+            <span className={s.select__current}>{title}</span>
+            <div style={{display: 'flex', alignItems: 'center', paddingRight: '10px'}}>
+            <div className={s.select__icon}
+                 style={crossIconStyle}
+                 onClick={() => {
+                     delete prevParams.created_gte
+                     delete prevParams.created_lte
+                     setTitle('Created')
+                     setSearchParams({...prevParams})
+                     setIconCrossIconStyle({display: 'none'})
+                     setFrom('')
+                     setBefore('')
+                     setIsOpen(false)
+                 }}
+            >&times;</div>
+            <div className={`${s.select__icon} ${s.select__icon__arrow}`}
+                 onClick={() => {
+                    if (from && before) {setTitle(`${from} - ${before}`)}
+                     setIsOpen(!isOpen)
+                 }}
+            >&#9660;</div>
+            </div>
         </div>
 
         <div className={`${s.selectBody} ${s.SelectWithDate__selectBody}`}>
@@ -174,7 +218,7 @@ const SelectWithDate = () => {
                        }}
                        onKeyUp={onKeyUpHandler}
                 />
-                <div style={{textAlign: 'center'}}>-</div>
+                <div style={{textAlign: 'center', marginLeft: "3px", marginRight: "3px"}}>-</div>
                 <input type="number"
                        className={s.created__year__field}
                        placeholder={'before'}
@@ -182,32 +226,11 @@ const SelectWithDate = () => {
                        onChange={(e) => {
                            setBefore(e.currentTarget.value)
                        }}
-                onKeyUp={onKeyUpHandler}
+                       onKeyUp={onKeyUpHandler}
                 />
-
-                {/*<button onClick={() => {*/}
-                {/*    dispatch(getCardsTC({data: `created_gte=${from}&created_lte=${before}`}))*/}
-                {/*}}>find*/}
-                {/*</button>*/}
-
 
             </div>
         </div>
     </div>
 
 }
-
-
-//
-// <div className={isOpen ? `${s.select} ${s.is__active}` : s.select}>
-//     <div className={s.selectHeader} onClick={() => setIsOpen(!isOpen)}>
-//         <span className={s.select__current}>{title}</span>
-//         {/*<div className={s.select__icon} onClick={() => setTitle(props.title)}>&times;</div>*/}
-//         <div className={`${s.select__icon} ${s.select__icon__arrow}`}>&#9660;</div>
-//     </div>
-//     <div className={s.selectBody}>
-//
-//
-//     </div>
-//
-// </div>
