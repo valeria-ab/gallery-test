@@ -1,14 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
-import {cardsApi, PaintingsResponseType} from '../../utils/api';
-import GalleryBlock from '../PhotosBlock/GalleryBlock';
-import SelectsBlock from '../SelectsBlock/SelectsBlock';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {IAppStore} from '../../store/store';
-import {getCardsTC} from '../../store/gallery-reducer';
-import Pagination from '../Pagination/Pagination';
 import {Header} from '../Header/Header';
-import {Routes, Route, useParams, useNavigate} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Main from '../Main/Main';
 
 const App = React.memo(() => {
