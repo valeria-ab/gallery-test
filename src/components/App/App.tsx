@@ -8,19 +8,17 @@ import Main from '../Main/Main';
 
 const App = React.memo(() => {
 
-        // const authorId = useSelector<IAppStore, string>(state => state.gallery.authorId)
-        // const galleryId = useSelector<IAppStore, number | null>(state => state.gallery.galleryId)
-    const isNightModeOn = useSelector<IAppStore, boolean>(state => state.gallery.isNightModeOn)
-
-
+ const isNightModeOn = useSelector<IAppStore, boolean>(state => state.gallery.isNightModeOn)
 
     return (
             <div className={isNightModeOn ? 'App ' + 'App__nightMode' : 'App'}>
+                <div className={'App__container'}>
                 <Header/>
                 <Routes>
                     <Route path={'/'} element={<Main/>}/>
                     <Route path={'/*'} element={<div>Page not found</div>}/>
                 </Routes>
+                </div>
             </div>
         );
     }

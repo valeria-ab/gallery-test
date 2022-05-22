@@ -1,0 +1,33 @@
+.select__item {
+    line-height: 24px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.select__item__whiteMode {
+    line-height: 24px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: white;
+}
+
+.select__item__nightMode {
+    line-height: 24px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+}
+
+.select__item__whiteMode:hover {
+    background-color: black;
+    color: white;
+}
+
+.select__item__nightMode:hover {
+    background-color: white;
+    color: black;
+}

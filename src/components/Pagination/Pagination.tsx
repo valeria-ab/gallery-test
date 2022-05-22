@@ -60,47 +60,48 @@ const Pagination = () => {
     }
 
 
-    return (
-        <div className={s.paginationBlock}>
-            <button className={currentPage === 1 ? disabledStyle : pagesModeStyle}
-                    style={{borderRadius: '8px 0 0 8px', fontSize: '23px'}}
-                    disabled={currentPage === 1}
-                    onClick={onLeftDoubleQuoteClick}
-            >
-                &laquo;
-            </button>
-            <button className={currentPage === 1 ? disabledStyle : pagesModeStyle}
-                    style={{fontSize: '23px'}}
-                    disabled={currentPage === 1}
-                    onClick={onLeftSingleAngleQuoteClick}
-            >
-                &#8249;
-            </button>
-            {pages.filter(p => p ? p >= leftNumber && p <= rightNumber : '')
-                .map(item => {
-                    return <button key={item}
-                                   style={{fontWeight: 'bold'}}
-                                   className={currentPage === item ? `${pagesModeStyle} ${activePageModeStyle}` : pagesModeStyle}
-                                   onClick={() => {
-                                       dispatch(setPage({currentPage: item}))
-                                   }}
-                    >{item}</button>
-                })}
-            <button className={currentPage === pages.length ? disabledStyle : pagesModeStyle}
-                    style={{fontSize: '23px'}}
-                    disabled={currentPage === pages.length}
-                    onClick={onRightSingleAngleQuoteClick}>
-                &#8250;
-            </button>
-            <button
-                className={currentPage === pages.length ? disabledStyle : pagesModeStyle}
-                style={{
-                    borderRadius: '0 8px 8px 0',
-                    fontSize: '23px',
-                }}
-                disabled={currentPage === pages.length}
-                onClick={onRightDoubleQuoteClick}
-            >&raquo;</button>
+    return (<div className={s.paginationContainer}>
+           <div className={s.paginationBlock}>
+                <button className={currentPage === 1 || paintings.length < 1? disabledStyle : pagesModeStyle}
+                        style={{borderRadius: '8px 0 0 8px', fontSize: '23px'}}
+                        disabled={currentPage === 1 || paintings.length < 1}
+                        onClick={onLeftDoubleQuoteClick}
+                >
+                    &laquo;
+                </button>
+                <button className={currentPage === 1 || paintings.length < 1 ? disabledStyle : pagesModeStyle}
+                        style={{fontSize: '23px'}}
+                        disabled={currentPage === 1 || paintings.length < 1}
+                        onClick={onLeftSingleAngleQuoteClick}
+                >
+                    &#8249;
+                </button>
+                {pages.filter(p => p ? p >= leftNumber && p <= rightNumber : '')
+                    .map(item => {
+                        return <button key={item}
+                                       style={{fontWeight: 'bold'}}
+                                       className={currentPage === item ? `${pagesModeStyle} ${activePageModeStyle}` : pagesModeStyle}
+                                       onClick={() => {
+                                           dispatch(setPage({currentPage: item}))
+                                       }}
+                        >{item}</button>
+                    })}
+                <button className={currentPage === pages.length || paintings.length < 1 ? disabledStyle : pagesModeStyle}
+                        style={{fontSize: '23px'}}
+                        disabled={currentPage === pages.length || paintings.length < 1}
+                        onClick={onRightSingleAngleQuoteClick}>
+                    &#8250;
+                </button>
+                <button
+                    className={currentPage === pages.length || paintings.length < 1 ? disabledStyle : pagesModeStyle}
+                    style={{
+                        borderRadius: '0 8px 8px 0',
+                        fontSize: '23px',
+                    }}
+                    disabled={currentPage === pages.length || paintings.length < 1}
+                    onClick={onRightDoubleQuoteClick}
+                >&raquo;</button>
+            </div>
         </div>
     );
 }

@@ -1,3 +1,7 @@
+.paginationContainer {
+    height: 13vh;
+    /*border: 1px solid #ffaffb;*/
+}
 .paginationBlock {
     display: flex;
     justify-content: stretch;

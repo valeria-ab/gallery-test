@@ -1,25 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {cardsApi, PaintingsResponseType} from '../../utils/api';
+import React, {useEffect} from 'react';
+import {cardsApi} from '../../utils/api';
 import GalleryBlock from '../PhotosBlock/GalleryBlock';
 import SelectsBlock from '../SelectsBlock/SelectsBlock';
 import Pagination from '../Pagination/Pagination';
-import {useDispatch, useSelector} from 'react-redux';
-import {IAppStore} from '../../store/store';
-import {useParams, useSearchParams} from 'react-router-dom';
-import {getCardsTC, setAuthors, setLocations} from '../../store/gallery-reducer';
+import {useDispatch} from 'react-redux';
+import {useSearchParams} from 'react-router-dom';
+import {getCardsTC, setAuthors, setLocations, setUrlParams} from '../../store/gallery-reducer';
 
 const Main = () => {
     const dispatch = useDispatch()
 
-    const paintings = useSelector<IAppStore, Array<PaintingsResponseType>>(state => state.gallery.paintings)
     const [searchParams, setSearchParams] = useSearchParams()
 
     useEffect(() => {
-        if (searchParams) {
-            dispatch(getCardsTC({data: searchParams}))
-        } else {
-            dispatch(getCardsTC())
-        }
+        dispatch(setUrlParams({urlParams: Object.fromEntries(searchParams)}))
+        dispatch(getCardsTC({data: searchParams}))
 
     }, [searchParams])
 
@@ -39,7 +34,7 @@ const Main = () => {
     return (
         <div>
             <SelectsBlock/>
-            <GalleryBlock pictures={paintings}/>
+            <GalleryBlock/>
             <Pagination/>
         </div>
     );

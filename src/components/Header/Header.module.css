@@ -1,3 +1,14 @@
 .header {
- height: 10vh;
+ height: 13vh;
+ width: 100%;
+ display: flex;
+ align-items: center;
+ flex-direction: row-reverse;
+/*border: 1px solid #ffaffb;*/
+}
+.header__icon {
+ cursor: pointer;
+}
+.header__icon__nightMode {
+ color: white;
 }

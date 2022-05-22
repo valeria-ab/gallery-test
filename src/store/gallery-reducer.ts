@@ -3,6 +3,13 @@ import {IAppStore} from './store';
 import {AnyAction, Dispatch} from 'redux';
 import {AuthorsResponseType, cardsApi, LocationsResponseType, PaintingsResponseType} from '../utils/api';
 
+export type UrlParamsType = {
+    authorId?: string
+    id?: string
+    q?: string
+    created_gte?: string,
+    created_lte?: string
+}
 
 export type InitialCardsStateType = {
     paintings: Array<PaintingsResponseType>
@@ -11,6 +18,7 @@ export type InitialCardsStateType = {
     isNightModeOn: boolean
     currentPage: number
     itemsPerPage: number
+    urlParams: UrlParamsType
 }
 
 const initialState: InitialCardsStateType = {
@@ -19,7 +27,8 @@ const initialState: InitialCardsStateType = {
     locations: [],
     currentPage: 1, // for pagination
     isNightModeOn: false,
-    itemsPerPage: 12
+    itemsPerPage: 12,
+    urlParams: {}
 };
 
 export const galleryReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
@@ -28,6 +37,7 @@ export const galleryReducer = (state: InitialCardsStateType = initialState, acti
         case 'GALLERY/SET-PAINTINGS':
         case 'GALLERY/SET-AUTHORS':
         case 'GALLERY/SET-LOCATIONS':
+        case 'GALLERY/SET-URL-PARAMS':
         // case 'GALLERY/SET-AUTHOR-ID':
         // case 'GALLERY/SET-LOCATION-ID':
         case 'GALLERY/SET-PAGE':
@@ -42,6 +52,10 @@ export const galleryReducer = (state: InitialCardsStateType = initialState, acti
 
 export const setPaintings = (payload: { paintings: Array<PaintingsResponseType> }) => ({
     type: 'GALLERY/SET-PAINTINGS',
+    payload
+} as const)
+export const setUrlParams = (payload: { urlParams: UrlParamsType }) => ({
+    type: 'GALLERY/SET-URL-PARAMS',
     payload
 } as const)
 export const setAuthors = (payload: { authors: Array<AuthorsResponseType> }) => ({
@@ -68,6 +82,7 @@ type ActionsType =
     | ReturnType<typeof setLocations>
     | ReturnType<typeof setPage>
     | ReturnType<typeof setIsNightModeOn>
+    | ReturnType<typeof setUrlParams>
 // | ReturnType<typeof setLocationId>
 
 

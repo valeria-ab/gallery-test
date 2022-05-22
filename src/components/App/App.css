@@ -1,18 +1,19 @@
 .App {
+  background-color: white;
   text-align: center;
-  margin: 2vh auto;
-  width: 90%;
-  min-height: 100vh;
-  border: 1px solid red;
-  font-family: 'Roboto', sans-serif;
-  /*display: flex;*/
-  /*justify-content: space-between;*/
 }
 .App__nightMode {
   background-color: black;
 }
-
-.App-link {
-  color: #61dafb;
+.App__container {
+  margin: 0 auto;
+  width: 90%;
+  min-height: 100vh;
+  /*border: 1px solid red;*/
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 

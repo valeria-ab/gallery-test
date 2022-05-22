@@ -1,34 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import PhotoItem from './PhotoItem/PhotoItem';
 import {PaintingsResponseType} from '../../utils/api';
 import {useSelector} from 'react-redux';
 import {IAppStore} from '../../store/store';
 
-type PropsType = {
-    pictures: Array<PaintingsResponseType>
-
-}
-const GalleryBlock = (props: PropsType) => {
+const GalleryBlock = () => {
 
     const currentPage = useSelector<IAppStore, number>(state => state.gallery.currentPage)
     const itemsPerPage = useSelector<IAppStore, number>(state => state.gallery.itemsPerPage)
+    const paintings = useSelector<IAppStore, Array<PaintingsResponseType>>(state => state.gallery.paintings)
 
     let end = currentPage * itemsPerPage
     let start = end - itemsPerPage
 
-    let paintings = props.pictures.slice(start, end)
-    let mappedArray = paintings;
-    if(props.pictures.length < 12) {
-        mappedArray = props.pictures
+    // let paintings
+    let mappedArray = paintings.slice(start, end);
+    if (paintings.length < 12) {
+        mappedArray = paintings
     }
 
 
     return (
-        <div style={{display: "flex", flexWrap: "wrap" , justifyContent: "space-between"}}>
-            {
-                mappedArray.map(p => <PhotoItem key={p.id} picture={p}/>)
+        <div style={{
+            display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between',
+            minHeight: '56vh',
+        }}>
+            {paintings.length
+                ? mappedArray.map(p => <PhotoItem key={p.id} picture={p}/>)
+                : <div style={{color: 'black', margin: "20px auto"}}>There are no pictures matching the specified filter.
+                    Please set a different value.</div>
             }
-
         </div>
     );
 }

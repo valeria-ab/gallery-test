@@ -1,0 +1,33 @@
+.SelectWithDate__selectBody {
+    right: -2px;
+    height: auto;
+}
+.SelectWithDate__fieldsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+.created__year__field {
+    border: none;
+    background: #EFEFEF;
+    cursor: pointer;
+    width: 30%;
+    min-width: 50px;
+    height: 42px;
+    border-radius: 8px;
+    margin: 0 auto;
+    padding-left: 15px;
+
+}
+.SelectWithDate__selectBody__dash {
+    text-align: center;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.SelectWithDate__selectBody__dash__nightMode {
+    color: white;
+}
+
+
