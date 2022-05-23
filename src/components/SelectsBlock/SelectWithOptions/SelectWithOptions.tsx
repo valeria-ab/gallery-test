@@ -33,7 +33,8 @@ export const SelectWithOptions = (props: SelectPropsType) => {
         : `${style.selectHeader} ${style.selectHeader__whiteMode}`
 
 
-    const onCrossIconClick = () => {
+    const onCrossIconClick = (e: any) => {
+        e.stopPropagation()
         props.authors && delete prevParams.authorId
         props.locations && delete prevParams.id
         setTitle(props.title)
@@ -74,7 +75,12 @@ export const SelectWithOptions = (props: SelectPropsType) => {
     }, [urlParams.authorId, urlParams.id, props.authors, props.locations])
 
 
-    return <div className={isOpen ? `${style.select} ${style.is__active}` : style.select}>
+    return <div className={isOpen ? `${style.select} ${style.is__active}` : style.select}
+                onClick={() => setIsOpen(!isOpen)}
+                tabIndex={2}
+                onBlur={() => setIsOpen(false)}
+
+    >
         <div className={isOpen ? headerOpenStyle : headerClosedStyle}
         >
             <span className={style.selectHeader__current__title}>{title}</span>

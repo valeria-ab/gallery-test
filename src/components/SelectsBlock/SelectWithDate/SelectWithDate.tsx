@@ -38,7 +38,8 @@ export const SelectWithDate = () => {
         }
     }, 1000)
 
-    const onCrossIconClick = () => {
+    const onCrossIconClick = (event: any) => {
+        event.stopPropagation()
         delete prevParams.created_gte
         delete prevParams.created_lte
         setTitle('Created')
@@ -64,7 +65,8 @@ export const SelectWithDate = () => {
 
 
     return <div className={isOpen ? `${style.select} ${style.is__active}` : style.select}>
-        <div className={isOpen ? headerOpenStyle : headerClosedStyle}>
+        <div className={isOpen ? headerOpenStyle : headerClosedStyle}
+             onClick={() => { setIsOpen(!isOpen) }}>
             <span className={style.selectHeader__current__title}>{title}</span>
             <div className={style.selectHeader__iconsContainer}>
                 <div

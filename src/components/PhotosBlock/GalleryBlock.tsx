@@ -11,6 +11,7 @@ const GalleryBlock = () => {
     const itemsPerPage = useSelector<IAppStore, number>(state => state.gallery.itemsPerPage)
     const paintings = useSelector<IAppStore, Array<PaintingsResponseType>>(state => state.gallery.paintings)
     const isNightModeOn = useSelector<IAppStore, boolean>(state => state.gallery.isNightModeOn)
+    const loadingStatus = useSelector<IAppStore, 'idle' | 'loading'>(state => state.gallery.loadingStatus)
 
     const notFoundTextSpan = isNightModeOn
         ? {color: 'white', margin: "20px auto"}
@@ -28,8 +29,8 @@ const GalleryBlock = () => {
         <div className={s.gallery__container}>
             {paintings.length
                 ? mappedArray.map(p => <PhotoItem key={p.id} picture={p}/>)
-                : <div style={notFoundTextSpan}>There are no pictures matching the specified filter.
-                    Please set a different value.</div>
+                : loadingStatus !== 'loading' && <div style={notFoundTextSpan}>There are no pictures matching the specified filter.
+                Please set a different value.</div>
             }
         </div>
     );

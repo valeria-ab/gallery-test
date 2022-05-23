@@ -1,6 +1,4 @@
-import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {IAppStore} from './store';
-import {AnyAction, Dispatch} from 'redux';
+import {Dispatch} from 'redux';
 import {AuthorsResponseType, cardsApi, LocationsResponseType, PaintingsResponseType} from '../utils/api';
 
 export type UrlParamsType = {
@@ -19,6 +17,7 @@ export type InitialCardsStateType = {
     currentPage: number
     itemsPerPage: number
     urlParams: UrlParamsType
+    loadingStatus: 'idle' | 'loading'
 }
 
 const initialState: InitialCardsStateType = {
@@ -28,7 +27,8 @@ const initialState: InitialCardsStateType = {
     currentPage: 1, // for pagination
     isNightModeOn: false,
     itemsPerPage: 12,
-    urlParams: {}
+    urlParams: {},
+    loadingStatus: 'idle',
 };
 
 export const galleryReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
@@ -38,8 +38,7 @@ export const galleryReducer = (state: InitialCardsStateType = initialState, acti
         case 'GALLERY/SET-AUTHORS':
         case 'GALLERY/SET-LOCATIONS':
         case 'GALLERY/SET-URL-PARAMS':
-        // case 'GALLERY/SET-AUTHOR-ID':
-        // case 'GALLERY/SET-LOCATION-ID':
+        case 'GALLERY/SET-LOADING':
         case 'GALLERY/SET-PAGE':
         case 'GALLERY/SET-IS-NIGHT-MODE-ON':
             return {...state, ...action.payload}
@@ -66,8 +65,10 @@ export const setLocations = (payload: { locations: Array<LocationsResponseType> 
     type: 'GALLERY/SET-LOCATIONS',
     payload
 } as const)
-// export const setAuthorId = (payload: {authorId: string}) => ({type: 'GALLERY/SET-AUTHOR-ID', payload} as const)
-// export const setLocationId = (payload: {galleryId: number}) => ({type: 'GALLERY/SET-LOCATION-ID', payload} as const)
+export const setLoading = (payload: { loadingStatus: 'idle' | 'loading' }) => ({
+    type: 'GALLERY/SET-LOADING',
+    payload
+} as const)
 export const setPage = (payload: { currentPage: number }) => ({type: 'GALLERY/SET-PAGE', payload} as const)
 export const setIsNightModeOn = (payload: { isNightModeOn: boolean }) => ({
     type: 'GALLERY/SET-IS-NIGHT-MODE-ON',
@@ -76,40 +77,31 @@ export const setIsNightModeOn = (payload: { isNightModeOn: boolean }) => ({
 
 
 type ActionsType =
-// | ReturnType<typeof setAuthorId>
+    | ReturnType<typeof setLoading>
     | ReturnType<typeof setPaintings>
     | ReturnType<typeof setAuthors>
     | ReturnType<typeof setLocations>
     | ReturnType<typeof setPage>
     | ReturnType<typeof setIsNightModeOn>
     | ReturnType<typeof setUrlParams>
-// | ReturnType<typeof setLocationId>
 
 
 // thunk
 
 export const getCardsTC = (payload?: { data: URLSearchParams }): any =>
-    (dispatch: Dispatch, getState: () => IAppStore) => {
-        const {
-            // authorId,
-            // galleryId,
-        } = getState().gallery;
+    (dispatch: Dispatch) => {
 
-
-        // dispatch(setAppLoading("loading"))
+        dispatch(setLoading({loadingStatus: 'loading'}))
         cardsApi.getPictures(payload && payload)
             .then((res) => {
-
                 dispatch(setPaintings({paintings: res.data}))
                 dispatch(setPage({currentPage: 1}))
             })
             .catch((err) => {
-                // dispatch(setErrorAC(err.response.data.error))
                 alert((err))
-
             })
             .finally(() => {
+                    dispatch(setLoading({loadingStatus: 'idle'}))
                 }
-                // dispatch(setAppLoading("idle"))
             )
     }
