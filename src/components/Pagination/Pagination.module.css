@@ -1,7 +1,7 @@
 .paginationContainer {
     height: 13vh;
-    /*border: 1px solid #ffaffb;*/
 }
+
 .paginationBlock {
     display: flex;
     justify-content: stretch;
@@ -11,6 +11,13 @@
     width: 280px;
     height: 40px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .paginationBlock {
+        margin: 20px auto;
+        justify-content: center;
+    }
 }
 
 .paginationBlock__pageButton {

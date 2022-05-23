@@ -79,9 +79,20 @@
     display: none;
     text-align: left;
     z-index: 99999;
-    height: 345px;
+    height: 300px;
     overflow-y: auto;
 }
+.selectBody::-webkit-scrollbar {
+    width: 9px;
+}
+.selectBody::-webkit-scrollbar-track {
+    border-radius: 8px;
+}
+.selectBody::-webkit-scrollbar-thumb {
+    background-color: #7B7B7B;
+    border-radius: 10px;
+}
+
 
 .selectBody__whiteMode {
     background-color: white;

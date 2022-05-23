@@ -1,0 +1,14 @@
+.gallery__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-height: 56vh;
+    width: 100%;
+    /*border: 1px solid*/
+
+}
+@media screen and (max-width: 767px) {
+    .gallery__container {
+        justify-content: space-around;
+    }
+}

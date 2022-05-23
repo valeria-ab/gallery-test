@@ -1,5 +1,5 @@
 .SelectWithDate__selectBody {
-    right: -2px;
+    right: 0;
     height: auto;
 }
 .SelectWithDate__fieldsContainer {
@@ -21,7 +21,7 @@
     padding-left: 15px;
 
 }
-@media screen and (max-width: 1023px) {
+@media screen and (min-width: 768px) and (max-width: 1029px) {
     .SelectWithDate__fieldsContainer {
         flex-direction: column;
     }
@@ -30,7 +30,7 @@
         max-width: 110px;
     }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) and (min-width: 1030px) {
     .SelectWithDate__fieldsContainer {
         flex-direction: row;
     }
