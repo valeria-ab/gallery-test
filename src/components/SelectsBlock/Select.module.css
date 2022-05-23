@@ -12,7 +12,16 @@
     min-width: 160px;
     position: relative;
 }
-
+@media screen and (max-width: 767px) {
+    .selects__Block {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .select {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
 .select.is__active .selectBody {
     display: block;
 }

@@ -21,12 +21,22 @@
     padding-left: 15px;
 
 }
-@media screen and (max-width: 908px) {
+@media screen and (max-width: 1023px) {
     .SelectWithDate__fieldsContainer {
         flex-direction: column;
     }
     .created__year__field {
-        width: 70%;
+        width: 90%;
+        max-width: 110px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .SelectWithDate__fieldsContainer {
+        flex-direction: row;
+    }
+    .created__year__field {
+        width: 30%;
+        min-width: 50px;
     }
 }
 .SelectWithDate__selectBody__dash {
