@@ -1,9 +1,12 @@
-import {Dispatch} from 'redux';
+import {Action} from 'redux';
 import {AuthorsResponseType, cardsApi, LocationsResponseType, PaintingsResponseType} from '../utils/api';
+import {ThunkAction} from 'redux-thunk';
+import { IAppStore} from './store';
+import type {} from 'redux-thunk/extend-redux';
 
 export type UrlParamsType = {
     authorId?: string
-    id?: string
+    locationId?: string
     q?: string
     created_gte?: string,
     created_lte?: string
@@ -28,7 +31,7 @@ const initialState: InitialCardsStateType = {
     isNightModeOn: false,
     itemsPerPage: 12,
     urlParams: {},
-    loadingStatus: 'idle',
+    loadingStatus: 'loading',
 };
 
 export const galleryReducer = (state: InitialCardsStateType = initialState, action: ActionsType): InitialCardsStateType => {
@@ -87,11 +90,10 @@ type ActionsType =
 
 
 // thunk
+export const getCardsTC = (payload?: { data: URLSearchParams }):ThunkAction<void, IAppStore, unknown, Action<{}>> =>
+    (dispatch) => {
 
-export const getCardsTC = (payload?: { data: URLSearchParams }): any =>
-    (dispatch: Dispatch) => {
-
-        dispatch(setLoading({loadingStatus: 'loading'}))
+        (setLoading({loadingStatus: 'loading'}))
         cardsApi.getPictures(payload && payload)
             .then((res) => {
                 dispatch(setPaintings({paintings: res.data}))

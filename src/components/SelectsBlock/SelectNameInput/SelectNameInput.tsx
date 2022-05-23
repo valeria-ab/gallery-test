@@ -21,7 +21,6 @@ export const SelectNameInput = () => {
         : `${style.selectHeader__current__title} ${s.select__current__input}`
 
 
-    // const history = useNavigate()
     const onKeyUpHandler = useDebounce(() => {
         if (name) {
             setSearchParams({...prevParams, q: name})

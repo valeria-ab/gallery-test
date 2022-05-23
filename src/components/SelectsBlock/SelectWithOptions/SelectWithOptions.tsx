@@ -36,7 +36,7 @@ export const SelectWithOptions = (props: SelectPropsType) => {
     const onCrossIconClick = (e: any) => {
         e.stopPropagation()
         props.authors && delete prevParams.authorId
-        props.locations && delete prevParams.id
+        props.locations && delete prevParams.locationId
         setTitle(props.title)
         setIconCrossIconStyle({display: 'none'})
         setSearchParams({...prevParams})
@@ -52,7 +52,7 @@ export const SelectWithOptions = (props: SelectPropsType) => {
     const onLocationsOptionClick = (id: number) => {
         setSearchParams({
             ...prevParams,
-            id: id.toString()
+            locationId: id.toString()
         })
         setIsOpen(false)
         setIconCrossIconStyle({display: 'block'})
@@ -66,13 +66,13 @@ export const SelectWithOptions = (props: SelectPropsType) => {
             setIconCrossIconStyle({display: 'block'})
         }
 
-        if (props.locations && urlParams.id) {
-            const location = props.locations.find(a => a.id.toString() === urlParams.id)
+        if (props.locations && urlParams.locationId) {
+            const location = props.locations.find(a => a.id.toString() === urlParams.locationId)
             location && location.location !== title && setTitle(location.location)
             setIconCrossIconStyle({display: 'block'})
         }
 
-    }, [urlParams.authorId, urlParams.id, props.authors, props.locations])
+    }, [urlParams.authorId, urlParams.locationId, props.authors, props.locations])
 
 
     return <div className={isOpen ? `${style.select} ${style.is__active}` : style.select}
