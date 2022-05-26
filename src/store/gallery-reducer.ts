@@ -93,7 +93,7 @@ type ActionsType =
 export const getCardsTC = (payload?: { data: URLSearchParams }):ThunkAction<void, IAppStore, unknown, Action<{}>> =>
     (dispatch) => {
 
-        (setLoading({loadingStatus: 'loading'}))
+        dispatch(setLoading({loadingStatus: 'loading'}))
         cardsApi.getPictures(payload && payload)
             .then((res) => {
                 dispatch(setPaintings({paintings: res.data}))
